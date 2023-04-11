@@ -136,76 +136,7 @@ echo -e "$green      Autoscript Zenvpn               $NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "${RED}┌───────────────────────────────────────┐${NC}"
 sleep 0.5
-red "PANEL DOMAIN/SUBDOMAIN"
-echo -e "${RED}└───────────────────────────────────────┘${NC}" 
-echo -e ""
-echo -e "${GREEN}1${NC}. Auto Domain"
-echo -e "${GREEN}2${NC}. Domain Pribadi"
-read -p "$( echo -e "${GREEN}Ketik Disini ! ${NC}(${YELLOW}1/2${NC})${NC} " )" choose_domain
-
-# // Validating Automatic / Private
-if [[ $choose_domain == "2" ]]; then # // Using Automatic Domain
-# // String / Request Data
-sub=$(</dev/urandom tr -dc a-z0-9 | head -c4)
-DOMAIN=vpncantik.tech
-SUB_DOMAIN=${sub}.vpncantik.tech
-CF_ID=cloudflaredomainpanel@gmail.com
-CF_KEY=91b7451cf8fed9cbc1c4ca31931ffce8741f6
-set -euo pipefail
-IP=$(curl -sS ifconfig.me);
-echo "Updating DNS for ${SUB_DOMAIN}..."
-ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
-     -H "X-Auth-Email: ${CF_ID}" \
-     -H "X-Auth-Key: ${CF_KEY}" \
-     -H "Content-Type: application/json" | jq -r .result[0].id)
-
-RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
-     -H "X-Auth-Email: ${CF_ID}" \
-     -H "X-Auth-Key: ${CF_KEY}" \
-     -H "Content-Type: application/json" | jq -r .result[0].id)
-
-if [[ "${#RECORD}" -le 10 ]]; then
-     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
-     -H "X-Auth-Email: ${CF_ID}" \
-     -H "X-Auth-Key: ${CF_KEY}" \
-     -H "Content-Type: application/json" \
-     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
-fi
-
-RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
-     -H "X-Auth-Email: ${CF_ID}" \
-     -H "X-Auth-Key: ${CF_KEY}" \
-     -H "Content-Type: application/json" \
-     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
-     
-echo "Host : $SUB_DOMAIN"
-echo $SUB_DOMAIN > /root/domain
-echo "$SUB_DOMAIN" > /root/scdomain
-	echo "$SUB_DOMAIN" > /etc/xray/scdomain
-	echo "$SUB_DOMAIN" > /etc/xray/domain
-	echo "$SUB_DOMAIN" > /etc/v2ray/domain
-echo "IP=$SUB_DOMAIN" > /var/lib/zenhost/ipvps.conf
-sleep 1
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
-yellow "Domain added.."
-sleep 3
-domain=$(cat /root/domain)
-cp -r /root/domain /etc/xray/domain
-
-# // ELif For Selection 1
-elif [[ $choose_domain == "1" ]]; then
-
-# // Clear
-clear
-clear && clear && clear
-clear;clear;clear
-
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "$green      Autoscript Zenvpn               $NC"
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "${RED}┌───────────────────────────────────────┐${NC}"
-sleep 0.5
-red "MASUKAN DOMAIN/SUBDOMAIN MU"
+      red "MASUKAN DOMAIN/SUBDOMAIN MU"
 echo -e "${RED}└───────────────────────────────────────┘${NC}" 
 echo " "
 read -rp "Input domain kamu : " -e dns
@@ -221,12 +152,6 @@ read -rp "Input domain kamu : " -e dns
 	echo $dns > /root/domain
         echo "IP=$dns" > /var/lib/zenhost/ipvps.conf
     fi
-
-# // Else Do
-else
-    echo -e "${EROR} Please Choose 1 & 2 Only !"
-    exit 1
-fi
 sts=jancok
 echo $sts > /home/email
 
@@ -331,8 +256,13 @@ rm /root/insshws.sh >/dev/null 2>&1
 secs_to_human "$(($(date +%s) - ${start}))" | tee -a log-install.txt
 echo -e "
 "
-echo -ne "Silahkan Reboot"
-
+echo -ne "[ ${yell}WARNING${NC} ] reboot now ? (y/n)? "
+read answer
+if [ "$answer" == "${answer#[Yy]}" ] ;then
+exit 0
+else
+reboot
+fi
 
 
 
