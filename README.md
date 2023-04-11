@@ -11,23 +11,25 @@
 
 
 <br>
-## Recommended Os 
-Ubuntu 20 LTS
-</b>
-##  Informasi Service dan Port
+## Recommended Os
 <br>
-[Service]
-Xray Vmess
-Xray Vless
-Xray Trojan
-Shadowsocks
-[Port]
-TLS/HTTPS = 443, 8443, 2053, 2083, 2087
-Non TLS/HTTP = 80, 2082, 8880, 8080, 2086, 2052
-[Fitur]
-Vmess Support Custom Path dan Multi Path
-Autodelete Expired Account
-Backup & Restore
+Ubuntu 20 LTS
+<br>
+</b>
+## Informasi Service dan Port
+<br>
+[Service]<br>
+Xray Vmess<br>
+Xray Vless<br>
+Xray Trojan<br>
+Shadowsocks<br>
+[Port]<br>
+TLS/HTTPS = 443, 8443, 2053, 2083, 2087<br>
+Non TLS/HTTP = 80, 2082, 8880, 8080, 2086, 2052<br>
+[Fitur]<br>
+Vmess Support Custom Path dan Multi Path<br>
+Autodelete Expired Account<br>
+Backup & Restore<br>
 <br>
 <br>
 Update Repo Khusus Debian 10 <br>
