@@ -11,12 +11,12 @@
 
 
 <br>
-## Recommended Os
+##  Recommended Os
 <br>
 Ubuntu 20 LTS
 <br>
 </b>
-## Informasi Service dan Port
+##  Informasi Service dan Port
 <br>
 [Service]<br>
 Xray Vmess<br>
