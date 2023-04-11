@@ -337,7 +337,6 @@ if [ "$answer" == "${answer#[Yy]}" ] ;then
 exit 0
 else
 reboot
-fi
 
 
 
